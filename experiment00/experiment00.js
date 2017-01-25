@@ -26,9 +26,9 @@ var vertexSource, fragmentSource;
 var vertexShader, fragmentShader;
 
 function getShader(gl, source, type) {
-	var shader = gl.createShader(type);
+    var shader = gl.createShader(type);
 
-	gl.shaderSource(shader, source);
+    gl.shaderSource(shader, source);
     gl.compileShader(shader);
 
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
@@ -40,21 +40,21 @@ function getShader(gl, source, type) {
 }
 
 function initShader() {
-	vertexSource = document.getElementById("shader-vs").textContent;
-	fragmentSource = document.getElementById("shader-fs").textContent;
-	vertexShader = getShader(gl, vertexSource, gl.VERTEX_SHADER);
-	fragmentShader = getShader(gl, fragmentSource, gl.FRAGMENT_SHADER);
+    vertexSource = document.getElementById("shader-vs").textContent;
+    fragmentSource = document.getElementById("shader-fs").textContent;
+    vertexShader = getShader(gl, vertexSource, gl.VERTEX_SHADER);
+    fragmentShader = getShader(gl, fragmentSource, gl.FRAGMENT_SHADER);
 }
 
 var program;
 
 function initProgram() {
-	program = gl.createProgram();
-	gl.attachShader(program, vertexShader);
-	gl.attachShader(program, fragmentShader);
-	gl.linkProgram(program);
+    program = gl.createProgram();
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
 
- 	if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
         alert("Could not initialise shaders");
     }
 
@@ -65,23 +65,23 @@ function initProgram() {
     program.attributes = [];
     var numAttribs = gl.getProgramParameter( program, gl.ACTIVE_ATTRIBUTES );
     for(var i = 0; i < numAttribs; ++i) {
-		var a = gl.getActiveAttrib( program, i );
-		if (a) {
-			a.location = gl.getAttribLocation(program, a.name);
-			program.attributes[a.name] = a;
-			console.log(a);
-		}
+        var a = gl.getActiveAttrib( program, i );
+        if (a) {
+            a.location = gl.getAttribLocation(program, a.name);
+            program.attributes[a.name] = a;
+            console.log(a);
+        }
     }
 
     program.uniforms = [];
     var numUniforms = gl.getProgramParameter( program, gl.ACTIVE_UNIFORMS);
     for(var i = 0; i < numUniforms; ++i) {
-    	var u = gl.getActiveUniform( program, i );
-    	if (u) {
-    		u.location = gl.getUniformLocation( program, u.name );
-    		program.uniforms[u.name] = u;
-			console.log(u);
-    	}
+        var u = gl.getActiveUniform( program, i );
+        if (u) {
+            u.location = gl.getUniformLocation( program, u.name );
+            program.uniforms[u.name] = u;
+            console.log(u);
+        }
     }
 }
 
@@ -102,17 +102,17 @@ for (var i = 0; i + 3 < 4; i += 4) {
 }
 
 var vertices = [
-	-1.0,  1.0,  0.0,
-	 1.0,  1.0,  0.0,
-	 1.0, -1.0,  0.0,
-	-1.0, -1.0,  0.0
+    -1.0,  1.0,  0.0,
+     1.0,  1.0,  0.0,
+     1.0, -1.0,  0.0,
+    -1.0, -1.0,  0.0
 ];
 
 var indiceBuffer, vertexBuffer;
 
 function initBuffer() {
 
-	indiceBuffer = gl.createBuffer();
+    indiceBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indiceBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Int16Array(indice), gl.STATIC_DRAW);
 
@@ -139,8 +139,8 @@ function draw() {
 
     // mat4.identity(mvMatrix);
     if ( mvMatrix[14] < -64 ) {
-    	console.log(mvMatrix)
-    	mat4.identity(mvMatrix);
+        console.log(mvMatrix)
+        mat4.identity(mvMatrix);
     }
     mat4.translate(mvMatrix, [0.0, 0.0, -1.0]);
 
@@ -150,20 +150,20 @@ function draw() {
 }
 
 function mainLoop() {
-	requestAnimationFrame(mainLoop);
-	draw();
+    requestAnimationFrame(mainLoop);
+    draw();
 }
 
 function run() {
-	var canvas = document.getElementById("gl-canvas");
-	initGL(canvas);
-	initShader();
-	initProgram();
-	initBuffer();
+    var canvas = document.getElementById("gl-canvas");
+    initGL(canvas);
+    initShader();
+    initProgram();
+    initBuffer();
 
-	mainLoop();
+    mainLoop();
 }
 
 onload = function() {
-	run();
+    run();
 };
