@@ -1,0 +1,3 @@
+1. drawElement指定类型需与绑定时指定的数据类型一致(Unit8Array -> gl.UNSIGNED_BYTE)
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint8Array(...), gl.STATIC_DRAW);
+    gl.drawElements(gl.LINES, ..., gl.UNSIGNED_BYTE, 0);

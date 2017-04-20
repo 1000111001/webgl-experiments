@@ -1,0 +1,40 @@
+<html>
+
+<head>
+
+<script id="shader-fs" type="x-shader/x-fragment">
+    precision mediump float;
+
+    varying vec3 vColor;
+
+    void main(void) {
+        gl_FragColor = vec4(vColor, 1.0);
+    }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec3 aColor;
+    varying vec3 vColor;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vColor = aColor;
+    }
+</script>
+
+
+<script type="text/javascript" src="glMatrix-0.9.5.js"></script>
+<script type="text/javascript" src="cubeModel.js"></script>
+<script type="text/javascript" src="experiment04.js"></script>
+
+</head>
+
+<body>
+    <canvas id="gl-canvas" style="border: none;" width="400" height="400"></canvas>
+</body>
+
+</html>
